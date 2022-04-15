@@ -10,6 +10,7 @@ import (
 	movies "web-service/api/src/domain/movie"
 
 	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
 )
 
 type IServiceContainer interface {
@@ -25,7 +26,7 @@ func (k *kernel) InjectMovieController() movies.MovieController {
 
 	sqlConn, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
-		log.Fatalf("Error in connexion with the DB { %v }", sqlConn)
+		log.Fatalf("Error InjectMovieController { %v }", err.Error())
 	}
 
 	postgresHandler := &databases.PostgresHandler{}
