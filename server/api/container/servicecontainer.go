@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 	"os"
+	"sync"
 	databases "web-service/api/database"
 	movies "web-service/api/src/domain/movie"
 
@@ -34,4 +35,18 @@ func (k *kernel) InjectMovieController() movies.MovieController {
 	movieController := movies.MovieController{movieRepository}
 
 	return movieController
+}
+
+var (
+	k             *kernel
+	containerOnce sync.Once
+)
+
+func ServiceContainer() IServiceContainer {
+	if k == nil {
+		containerOnce.Do(func() {
+			k = &kernel{}
+		})
+	}
+	return k
 }
