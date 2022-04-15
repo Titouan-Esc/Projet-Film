@@ -49,17 +49,47 @@ func (entity *MovieRepository) GetMovieByIdDB(mid int) (models.ModelMovie, error
 	return movie, nil
 }
 
-func (entity *MovieRepository) UpdateMovieDB(movie models.ModelMovie) (int, error) {
-	var id int
-	return id, nil
+func (entity *MovieRepository) UpdateMovieDB(movie models.ModelMovieRequest) (int, error) {
+	_, err := entity.Query(fmt.Sprintf(`UPDATE "movies" SET "title" = '%s', "overview" = '%s', "picture" = '%s' WHERE "id" = %d`, movie.Title, movie.Overview, movie.Picture, movie.ID))
+	if err != nil {
+		return -1, err
+	}
+
+	return movie.ID, nil
 }
 
 func (entity *MovieRepository) DeleteMovieDB(mid int) (int, error) {
+	row, err := entity.Query(fmt.Sprintf(`DELETE FROM "movies" WHERE "id" + %d RETURNING "id"`, mid))
+	if err != nil {
+		return -1, err
+	}
+
 	var id int
+	for row.Next() {
+		if err := row.Scan(&id); err != nil {
+			return -1, err
+		}
+	}
+
 	return id, nil
 }
 
 func (entity *MovieRepository) MovieExistDB(title string) bool {
-	var ouai bool
-	return ouai
+	row, err := entity.Query(fmt.Sprintf(`SELECT "id" FROM "movies" WHERE "title" = '%s'`, title))
+	if err != nil {
+		return true
+	}
+
+	var id int
+	for row.Next() {
+		if err := row.Scan(&id); err != nil {
+			return true
+		}
+	}
+
+	if id > 1 {
+		return true
+	}
+
+	return false
 }
