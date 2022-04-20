@@ -8,6 +8,6 @@ import (
 )
 
 func main() {
-	fmt.Println("Listen to port 4100")
-	http.ListenAndServe(":4100", chi.ChiRouter().InitRouter())
+	fmt.Println("Listen to port 4000")
+	http.ListenAndServe(":4000", chi.ChiRouter().InitRouter())
 }
