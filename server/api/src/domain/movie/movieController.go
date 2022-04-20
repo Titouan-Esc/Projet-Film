@@ -20,7 +20,7 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 	res.Header().Set("Content-Type", "application/json")
 
 	godotenv.Load()
-	response, err := utils.ConsumApi("https://api.themoviedb.org/3/genre/movie/list?")
+	response, err := utils.ConsumApi("http://api.themoviedb.org/3/discover/movie?")
 	if err != nil {
 		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
 		res.WriteHeader(http.StatusInternalServerError)
@@ -29,7 +29,7 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 	}
 	fmt.Println(response)
 
-	var genre models.MovieModel
+	var genre models.DiscoverModel
 	if err := json.Unmarshal([]byte(response), &genre); err != nil {
 		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
 		res.WriteHeader(http.StatusInternalServerError)
