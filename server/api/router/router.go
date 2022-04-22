@@ -34,6 +34,7 @@ func (router *router) InitRouter() *chi.Mux {
 	// Routes for movies
 	// -----------------------------
 	r.Get("/movies", movieController.GetFilmInMovieDB)
+	r.Post("/test", movieController.Test)
 	return r
 }
 

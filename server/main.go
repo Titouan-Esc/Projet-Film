@@ -3,11 +3,16 @@ package main
 import (
 	"fmt"
 	"net/http"
+	"os"
 
 	chi "web-service/api/router"
 )
 
 func main() {
-	fmt.Println("Listen to port 4000")
-	http.ListenAndServe(":4000", chi.ChiRouter().InitRouter())
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "4200"
+	}
+	fmt.Printf("Listen to port %s", port)
+	http.ListenAndServe(":"+port, chi.ChiRouter().InitRouter())
 }

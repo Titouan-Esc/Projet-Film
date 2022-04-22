@@ -40,3 +40,11 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 	res.WriteHeader(http.StatusOK)
 	json.NewEncoder(res).Encode(genre)
 }
+
+func (controller *MovieController) Test(res http.ResponseWriter, req *http.Request) {
+	res.Header().Set("Content-Type", "application/json")
+
+	var mot string
+	json.NewDecoder(req.Body).Decode(&mot)
+	json.NewEncoder(res).Encode(mot)
+}
