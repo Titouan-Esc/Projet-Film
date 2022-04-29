@@ -13,6 +13,6 @@ func main() {
 	if port == "" {
 		port = "4200"
 	}
-	fmt.Printf("Listen to port %s", port)
+	fmt.Printf("Listen to port %s\n", port)
 	http.ListenAndServe(":"+port, chi.ChiRouter().InitRouter())
 }

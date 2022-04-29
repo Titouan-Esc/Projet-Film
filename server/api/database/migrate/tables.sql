@@ -1,4 +1,8 @@
 CREATE TABLE "movies" (
-    id SERIAL PRIMARY KEY,
-    
+    id int,
+    poster_path varchar,
+    overview varchar,
+    release_date varchar
+    title varchar,
+    popularity number
 )
