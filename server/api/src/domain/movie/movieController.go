@@ -85,3 +85,13 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 	res.WriteHeader(http.StatusOK)
 	json.NewEncoder(res).Encode(allMovies)
 }
+
+func (controller *MovieController) Like(res http.ResponseWriter, req *http.Request) {}
+
+func (controller *MovieController) Dislike(res http.ResponseWriter, req *http.Request) {}
+
+func (controller *MovieController) AddComment(res http.ResponseWriter, req *http.Request) {}
+
+func (controller *MovieController) UpdateComment(res http.ResponseWriter, req *http.Request) {}
+
+func (controller *MovieController) DeleteComment(res http.ResponseWriter, req *http.Request) {}
