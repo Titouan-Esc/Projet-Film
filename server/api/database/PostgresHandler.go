@@ -12,7 +12,7 @@ type PostgresHandler struct {
 func (handler *PostgresHandler) Query(statement string) (IRow, error) {
 	rows, err := handler.Conn.Query(statement)
 	if err != nil {
-		log.Panicf("Error to make the Query { %v }", err)
+		log.Printf("Error to make the Query { %v }", err.Error())
 		return new(PostgresRow), err
 	}
 
@@ -28,7 +28,7 @@ type PostgresRow struct {
 
 func (handler *PostgresRow) Scan(dest ...interface{}) error {
 	if err := handler.Rows.Scan(dest...); err != nil {
-		log.Panicf("Error to Scan DB { %v }", err)
+		log.Printf("Error to Scan DB { %v }", err)
 		return err
 	}
 

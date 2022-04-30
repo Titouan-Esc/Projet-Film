@@ -35,6 +35,8 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 		return
 	}
 
+	allMovies := make([]*models.ResultsModel, 0)
+
 	for _, value := range genre.Results {
 		isExist, _ := controller.MovieExist(value.ID)
 		if isExist {
@@ -44,7 +46,7 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 			return
 		}
 
-		idMovie, err := controller.SaveMovieDB(value)
+		movies, err := controller.SaveMovieDB(value)
 		if err != nil {
 			err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
 			res.WriteHeader(http.StatusInternalServerError)
@@ -52,10 +54,9 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 			return
 		}
 
-		res.WriteHeader(http.StatusOK)
-		json.NewEncoder(res).Encode(idMovie)
+		allMovies = append(allMovies, &movies)
 	}
 
-	res.WriteHeader(http.StatusInternalServerError)
-	json.NewEncoder(res).Encode(genre)
+	res.WriteHeader(http.StatusOK)
+	json.NewEncoder(res).Encode(allMovies)
 }
