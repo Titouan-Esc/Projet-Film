@@ -2,6 +2,7 @@ package database
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 )
 
@@ -12,12 +13,14 @@ type PostgresHandler struct {
 func (handler *PostgresHandler) Query(statement string) (IRow, error) {
 	rows, err := handler.Conn.Query(statement)
 	if err != nil {
-		log.Printf("Error to make the Query { %v }", err.Error())
+		fmt.Println("Error to make the Query ", err.Error())
 		return new(PostgresRow), err
 	}
 
 	row := new(PostgresRow)
 	row.Rows = rows
+
+	// defer rows.Close()
 
 	return row, nil
 }

@@ -30,10 +30,10 @@ func (repository *MovieRepository) MovieExist(mid int) (bool, error) {
 	return false, nil
 }
 
-func (repository *MovieRepository) SaveMovieDB(movie models.ResultsModel) (models.ResultsModel, error) {
+func (repository *MovieRepository) SaveMovieDB(movie models.ResultsModel, overview, title string) (models.ResultsModel, error) {
 	var movies models.ResultsModel
 
-	row, err := repository.Query(fmt.Sprintf(`INSERT INTO "movies" ("id", "poster_path", "overview", "release_date", "title", "popularity") VALUES (%d, '%s', '%s', '%s', '%s', %v) RETURNING *`, movie.ID, movie.PosterPath, movie.Overview, movie.ReleaseDate, movie.Title, movie.Popularity))
+	row, err := repository.Query(fmt.Sprintf(`INSERT INTO "movies" ("id", "poster_path", "overview", "release_date", "title", "popularity") VALUES (%d, '%s', '%s', '%s', '%s', %e) RETURNING *`, movie.ID, movie.PosterPath, overview, movie.ReleaseDate, title, movie.Popularity))
 	if err != nil {
 		return movies, err
 	}

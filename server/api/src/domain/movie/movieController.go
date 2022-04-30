@@ -3,6 +3,7 @@ package movie
 import (
 	"encoding/json"
 	"net/http"
+	"strings"
 	"web-service/api/src/domain/movie/models"
 	"web-service/api/src/interfaces"
 	"web-service/api/src/middlewares"
@@ -38,6 +39,10 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 	allMovies := make([]*models.ResultsModel, 0)
 
 	for _, value := range genre.Results {
+
+		overview := strings.Replace(value.Overview, "'", "''", -1)
+		title := strings.Replace(value.Title, "'", "''", -1)
+
 		isExist, _ := controller.MovieExist(value.ID)
 		if isExist {
 			err := middlewares.ServiceFonctionalError(middlewares.ErrMovieExist.Error(), http.StatusInternalServerError)
@@ -46,7 +51,7 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 			return
 		}
 
-		movies, err := controller.SaveMovieDB(value)
+		movies, _ := controller.SaveMovieDB(value, overview, title)
 		if err != nil {
 			err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
 			res.WriteHeader(http.StatusInternalServerError)
