@@ -3,3 +3,7 @@ air:
 
 watch:
 	./bin/air
+
+init-p:
+	go mod init web-service
+	go mod tidy
