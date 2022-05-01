@@ -98,7 +98,17 @@ func (controller *MovieController) Like(res http.ResponseWriter, req *http.Reque
 		return
 	}
 
-	likes, err := controller.LikeMovieDB(Body.ID, 1, "likes")
+	allLikes, err := controller.RecoverLikesMovieDB(Body.ID, "likes")
+	if err != nil {
+		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
+		res.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(res).Encode(err)
+		return
+	}
+
+	allLikes += 1
+
+	likes, err := controller.LikeMovieDB(Body.ID, allLikes, "likes")
 	if err != nil {
 		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
 		res.WriteHeader(http.StatusInternalServerError)

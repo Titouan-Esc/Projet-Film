@@ -48,8 +48,35 @@ func (repository *MovieRepository) SaveMovieDB(movie models.ResultsModel, overvi
 }
 
 func (repository *MovieRepository) LikeMovieDB(mid, like int, column string) (int, error) {
-	var id int
-	return id, nil
+	row, err := repository.Query(fmt.Sprintf(`UPDATE "movies" SET "%s" = %d WHERE "id" = %d RETURNING "%s"`, column, like, mid, column))
+	if err != nil {
+		return -1, err
+	}
+
+	var likes int
+	for row.Next() {
+		if err := row.Scan(&likes); err != nil {
+			return -1, err
+		}
+	}
+
+	return likes, nil
+}
+
+func (reposiroty *MovieRepository) RecoverLikesMovieDB(mid int, column string) (int, error) {
+	row, err := reposiroty.Query(fmt.Sprintf(`SELECT "%s" FROM "movies" WHERE "id" = %d`, column, mid))
+	if err != nil {
+		return -1, err
+	}
+
+	var likes int
+	for row.Next() {
+		if err := row.Scan(&likes); err != nil {
+			return -1, err
+		}
+	}
+
+	return likes, nil
 }
 
 func (repository *MovieRepository) AddCommentMovieDB(mid int, txt string) (string, error) {
