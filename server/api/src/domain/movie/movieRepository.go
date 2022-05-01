@@ -33,16 +33,36 @@ func (repository *MovieRepository) MovieExist(mid int) (bool, error) {
 func (repository *MovieRepository) SaveMovieDB(movie models.ResultsModel, overview, title string) (models.ResultsModel, error) {
 	var movies models.ResultsModel
 
-	row, err := repository.Query(fmt.Sprintf(`INSERT INTO "movies" ("id", "poster_path", "overview", "release_date", "title", "popularity") VALUES (%d, '%s', '%s', '%s', '%s', %e) RETURNING *`, movie.ID, movie.PosterPath, overview, movie.ReleaseDate, title, movie.Popularity))
+	row, err := repository.Query(fmt.Sprintf(`INSERT INTO "movies" ("id", "poster_path", "overview", "release_date", "title", "popularity", "likes", "dislikes", "comments") VALUES (%d, '%s', '%s', '%s', '%s', %e, 0, 0, '') RETURNING *`, movie.ID, movie.PosterPath, overview, movie.ReleaseDate, title, movie.Popularity))
 	if err != nil {
 		return movies, err
 	}
 
 	for row.Next() {
-		if err := row.Scan(&movies.ID, &movies.PosterPath, &movies.Overview, &movies.ReleaseDate, &movies.Title, &movies.Popularity); err != nil {
+		if err := row.Scan(&movies.ID, &movies.PosterPath, &movies.Overview, &movies.ReleaseDate, &movies.Title, &movies.Popularity, &movies.Likes, &movies.Dislikes, &movies.Comments); err != nil {
 			return movies, err
 		}
 	}
 
 	return movies, nil
+}
+
+func (repository *MovieRepository) LikeMovieDB(mid, like int, column string) (int, error) {
+	var id int
+	return id, nil
+}
+
+func (repository *MovieRepository) AddCommentMovieDB(mid int, txt string) (string, error) {
+	var text string
+	return text, nil
+}
+
+func (repository *MovieRepository) UpdateCommentMovieDB(mid int, txt string) (string, error) {
+	var text string
+	return text, nil
+}
+
+func (repository *MovieRepository) DeleteCommentMovieDB(mid int) (int, error) {
+	var id int
+	return id, nil
 }

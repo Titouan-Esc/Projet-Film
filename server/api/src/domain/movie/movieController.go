@@ -86,7 +86,29 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 	json.NewEncoder(res).Encode(allMovies)
 }
 
-func (controller *MovieController) Like(res http.ResponseWriter, req *http.Request) {}
+func (controller *MovieController) Like(res http.ResponseWriter, req *http.Request) {
+	var Body struct {
+		ID int `json:"id"`
+	}
+
+	if err := json.NewDecoder(req.Body).Decode(&Body); err != nil {
+		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
+		res.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(res).Encode(err)
+		return
+	}
+
+	likes, err := controller.LikeMovieDB(Body.ID, 1, "likes")
+	if err != nil {
+		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
+		res.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(res).Encode(err)
+		return
+	}
+
+	res.WriteHeader(http.StatusOK)
+	json.NewEncoder(res).Encode(likes)
+}
 
 func (controller *MovieController) Dislike(res http.ResponseWriter, req *http.Request) {}
 
