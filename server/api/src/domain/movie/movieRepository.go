@@ -79,14 +79,21 @@ func (reposiroty *MovieRepository) RecoverLikesMovieDB(mid int, column string) (
 	return likes, nil
 }
 
-func (repository *MovieRepository) AddCommentMovieDB(mid int, txt string) (string, error) {
-	var text string
-	return text, nil
-}
+func (repository *MovieRepository) AddCommentMovieDB(mid int, comment string) (string, error) {
+	var commentaire string
 
-func (repository *MovieRepository) UpdateCommentMovieDB(mid int, txt string) (string, error) {
-	var text string
-	return text, nil
+	row, err := repository.Query(fmt.Sprintf(`UPDATE "movies" SET "comments" = '%s' WHERE "id" = %d RETURNING "comments"`, comment, mid))
+	if err != nil {
+		return commentaire, err
+	}
+
+	for row.Next() {
+		if err := row.Scan(&commentaire); err != nil {
+			return commentaire, err
+		}
+	}
+
+	return commentaire, nil
 }
 
 func (repository *MovieRepository) DeleteCommentMovieDB(mid int) (int, error) {

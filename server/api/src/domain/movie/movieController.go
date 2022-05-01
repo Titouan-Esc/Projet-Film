@@ -15,8 +15,9 @@ type MovieController struct {
 	interfaces.IMovieRepository
 }
 
+// ? Fonction pour la récupération des films puis les insérer dans la Base De Donnée
 func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req *http.Request) {
-	res.Header().Set("Content-Type", "application/json")
+	res.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
 	// Créer un struct pour le req.body
 	var Body struct {
@@ -86,7 +87,10 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 	json.NewEncoder(res).Encode(allMovies)
 }
 
+// ? Fonction pour le système de Like
 func (controller *MovieController) Like(res http.ResponseWriter, req *http.Request) {
+	res.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
 	var Body struct {
 		ID int `json:"id"`
 	}
@@ -120,7 +124,10 @@ func (controller *MovieController) Like(res http.ResponseWriter, req *http.Reque
 	json.NewEncoder(res).Encode(likes)
 }
 
+// ? Fonction pour le système de Dislikes
 func (controller *MovieController) Dislike(res http.ResponseWriter, req *http.Request) {
+	res.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
 	var Body struct {
 		ID int `json:"id"`
 	}
@@ -154,8 +161,33 @@ func (controller *MovieController) Dislike(res http.ResponseWriter, req *http.Re
 	json.NewEncoder(res).Encode(likes)
 }
 
-func (controller *MovieController) AddComment(res http.ResponseWriter, req *http.Request) {}
+// ? Fonction pour ajouter un commentaire et l'update
+func (controller *MovieController) AddComment(res http.ResponseWriter, req *http.Request) {
+	res.Header().Set("Content-Type", "application/json; charset=UTF-8")
 
-func (controller *MovieController) UpdateComment(res http.ResponseWriter, req *http.Request) {}
+	var comments models.CommentRequest
+	if err := json.NewDecoder(req.Body).Decode(&comments); err != nil {
+		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
+		res.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(res).Encode(err)
+		return
+	}
 
-func (controller *MovieController) DeleteComment(res http.ResponseWriter, req *http.Request) {}
+	content := strings.Replace(comments.Comments, "'", "''", -1)
+
+	comment, err := controller.AddCommentMovieDB(comments.ID, content)
+	if err != nil {
+		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
+		res.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(res).Encode(err)
+		return
+	}
+
+	res.WriteHeader(http.StatusOK)
+	json.NewEncoder(res).Encode(comment)
+}
+
+// ? Fonction pour supprimer un commentaire
+func (controller *MovieController) DeleteComment(res http.ResponseWriter, req *http.Request) {
+	res.Header().Set("Content-Type", "application/json; charset=UTF-8")
+}
