@@ -190,4 +190,25 @@ func (controller *MovieController) AddComment(res http.ResponseWriter, req *http
 // ? Fonction pour supprimer un commentaire
 func (controller *MovieController) DeleteComment(res http.ResponseWriter, req *http.Request) {
 	res.Header().Set("Content-Type", "application/json; charset=UTF-8")
+
+	var Body struct {
+		ID int `json:"id"`
+	}
+	if err := json.NewDecoder(req.Body).Decode(&Body); err != nil {
+		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
+		res.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(res).Encode(err)
+		return
+	}
+
+	idMovie, err := controller.DeleteCommentMovieDB(Body.ID)
+	if err != nil {
+		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
+		res.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(res).Encode(err)
+		return
+	}
+
+	res.WriteHeader(http.StatusOK)
+	json.NewEncoder(res).Encode(idMovie)
 }

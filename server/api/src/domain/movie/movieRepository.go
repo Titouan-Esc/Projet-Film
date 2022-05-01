@@ -97,6 +97,17 @@ func (repository *MovieRepository) AddCommentMovieDB(mid int, comment string) (s
 }
 
 func (repository *MovieRepository) DeleteCommentMovieDB(mid int) (int, error) {
+	row, err := repository.Query(fmt.Sprintf(`UPDATE "movies" SET "comments" = '' WHERE "id" = %d RETURNING "id"`, mid))
+	if err != nil {
+		return -1, err
+	}
+
 	var id int
+	for row.Next() {
+		if err := row.Scan(&id); err != nil {
+			return -1, err
+		}
+	}
+
 	return id, nil
 }
