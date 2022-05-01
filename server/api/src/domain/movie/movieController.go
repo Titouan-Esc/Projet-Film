@@ -120,7 +120,39 @@ func (controller *MovieController) Like(res http.ResponseWriter, req *http.Reque
 	json.NewEncoder(res).Encode(likes)
 }
 
-func (controller *MovieController) Dislike(res http.ResponseWriter, req *http.Request) {}
+func (controller *MovieController) Dislike(res http.ResponseWriter, req *http.Request) {
+	var Body struct {
+		ID int `json:"id"`
+	}
+
+	if err := json.NewDecoder(req.Body).Decode(&Body); err != nil {
+		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
+		res.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(res).Encode(err)
+		return
+	}
+
+	allDislikes, err := controller.RecoverLikesMovieDB(Body.ID, "dislikes")
+	if err != nil {
+		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
+		res.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(res).Encode(err)
+		return
+	}
+
+	allDislikes += 1
+
+	likes, err := controller.LikeMovieDB(Body.ID, allDislikes, "dislikes")
+	if err != nil {
+		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
+		res.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(res).Encode(err)
+		return
+	}
+
+	res.WriteHeader(http.StatusOK)
+	json.NewEncoder(res).Encode(likes)
+}
 
 func (controller *MovieController) AddComment(res http.ResponseWriter, req *http.Request) {}
 
