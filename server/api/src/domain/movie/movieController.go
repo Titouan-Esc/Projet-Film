@@ -2,7 +2,6 @@ package movie
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 	"web-service/api/src/domain/movie/models"
 	"web-service/api/src/interfaces"
@@ -27,7 +26,6 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 		json.NewEncoder(res).Encode(err)
 		return
 	}
-	fmt.Println(response)
 
 	var genre models.DiscoverModel
 	if err := json.Unmarshal([]byte(response), &genre); err != nil {
