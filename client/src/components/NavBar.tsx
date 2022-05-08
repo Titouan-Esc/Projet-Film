@@ -7,7 +7,7 @@ const NavBar: React.FunctionComponent<NavBarProps> = (props) => {
     <footer>
       <nav>
         <Link to="/">Home Page</Link>
-        <Link to="/one-film">Film</Link>
+        <Link to="/films">Films</Link>
       </nav>
     </footer>
   );

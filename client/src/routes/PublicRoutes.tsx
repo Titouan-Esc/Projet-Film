@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "../pages/HomePage";
-import OneFilm from "../pages/OneFilm";
+import Films from "../pages/Films";
 
 interface PublicRoutesProps {}
 
@@ -9,7 +9,7 @@ const PublicRoutes: React.FunctionComponent<PublicRoutesProps> = (props) => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/one-film" element={<OneFilm />} />
+        <Route path="/films" element={<Films />} />
       </Routes>
     </BrowserRouter>
   );
