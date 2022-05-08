@@ -1,9 +1,18 @@
-import React from 'react'
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import HomePage from "../pages/HomePage";
+import OneFilm from "../pages/OneFilm";
 
-const PublicRoutes = () => {
+interface PublicRoutesProps {}
+
+const PublicRoutes: React.FunctionComponent<PublicRoutesProps> = (props) => {
   return (
-    <div>PublicRoutes</div>
-  )
-}
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/one-film" element={<OneFilm />} />
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
-export default PublicRoutes
+export default PublicRoutes;

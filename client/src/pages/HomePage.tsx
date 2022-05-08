@@ -1,9 +1,14 @@
-import React from 'react'
+import NavBar from "../components/NavBar";
 
-const HomePage = () => {
+interface HomePageProps {}
+
+const HomePage: React.FunctionComponent<HomePageProps> = (props) => {
   return (
-    <div>HomePage</div>
-  )
-}
+    <main>
+      <h1>Home Page</h1>
+      <NavBar />
+    </main>
+  );
+};
 
-export default HomePage
+export default HomePage;

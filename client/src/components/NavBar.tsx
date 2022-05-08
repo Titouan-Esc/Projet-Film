@@ -1,9 +1,16 @@
-import React from 'react'
+import { Link } from "react-router-dom";
 
-const NavBar = () => {
+interface NavBarProps {}
+
+const NavBar: React.FunctionComponent<NavBarProps> = (props) => {
   return (
-    <div>NavBar</div>
-  )
-}
+    <footer>
+      <nav>
+        <Link to="/">Home Page</Link>
+        <Link to="/one-film">Film</Link>
+      </nav>
+    </footer>
+  );
+};
 
-export default NavBar
+export default NavBar;
