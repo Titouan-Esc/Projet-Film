@@ -1,0 +1,15 @@
+footer {
+  height: 10vh;
+  width: 100%;
+  background-color: $color-background;
+
+  nav {
+    width: 70%;
+    @include flex-box(row, space-between, center);
+    margin: 0 auto;
+
+    a {
+      @include flex-box(row, center, center);
+    }
+  }
+}

@@ -4,7 +4,7 @@ interface OneFilmProps {}
 
 const OneFilm: React.FunctionComponent<OneFilmProps> = () => {
   return (
-    <main>
+    <main className="one-film">
       <h1>One Film</h1>
       <NavBar />
     </main>
