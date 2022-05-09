@@ -1,18 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "../pages/HomePage";
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Films from "../pages/Films";
+import HomePage from "../pages/HomePage";
 
-interface PublicRoutesProps {}
-
-const PublicRoutes: React.FunctionComponent<PublicRoutesProps> = (props) => {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/films" element={<Films />} />
-      </Routes>
-    </BrowserRouter>
-  );
-};
+const PublicRoutes = () => (
+  <BrowserRouter>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/films" element={<Films />} />
+    </Routes>
+  </BrowserRouter>
+);
 
 export default PublicRoutes;

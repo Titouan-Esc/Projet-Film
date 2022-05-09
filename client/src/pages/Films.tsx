@@ -1,21 +1,19 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import Film from "../components/Film";
 import NavBar from "../components/NavBar";
+import { IOneFilm } from "../interfaces/App_interface";
 
-interface FilmsProps {}
-
-export interface OneFilm {
-  Image: string;
-  Title: string;
-  Description: string;
+interface FilmsProps {
+  film: IOneFilm | any;
 }
 
-const Films: React.FunctionComponent<FilmsProps> = () => {
-  const [card, setCard] = useState<OneFilm>();
+const Films = () => {
+  const [appFilm, setAppFilm] = useState<FilmsProps>();
+
   return (
     <main className="films">
       <h1>Tout les films</h1>
-      <Film card={card} setCard={setCard} />
+      <Film film={appFilm?.film} />
       <NavBar />
     </main>
   );
