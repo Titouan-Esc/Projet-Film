@@ -4,5 +4,8 @@ CREATE TABLE "movies" (
     overview varchar,
     release_date varchar,
     title varchar,
-    popularity int
+    popularity int,
+    likes int,
+    dislikes int,
+    comments varchar
 );

@@ -15,7 +15,7 @@ func ConsumApi(url string) (string, error) {
 	godotenv.Load()
 	apiKey := os.Getenv("API_KEY")
 
-	response, err := http.Get(url + "api_key=" + apiKey)
+	response, err := http.Get(url + apiKey)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)

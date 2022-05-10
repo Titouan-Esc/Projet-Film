@@ -2,6 +2,7 @@ package movie
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"strings"
 	"web-service/api/src/domain/movie/models"
@@ -32,7 +33,7 @@ func (controller *MovieController) GetFilmInMovieDB(res http.ResponseWriter, req
 	}
 
 	// Appel de ma fonction pour récupérer les films sur l'api
-	response, err := utils.ConsumApi(fmt.Sprintf(`http://api.themoviedb.org/3/discover/movie?page=%d&`, Body.Page))
+	response, err := utils.ConsumApi(fmt.Sprintf(`http://api.themoviedb.org/3/discover/movie?page=%d&api_key=`, Body.Page))
 	if err != nil {
 		err := middlewares.ServiceFonctionalError(err.Error(), http.StatusInternalServerError)
 		res.WriteHeader(http.StatusInternalServerError)
