@@ -47,7 +47,6 @@ func recoverData() {
 		// Parse overview et title car pour l'insertion en db les 's pose un gros problème et sur postgreSQL pour remédier à ce problème il faut doubler '
 		overview := strings.Replace(value.Overview, "'", "''", -1)
 		title := strings.Replace(value.Title, "'", "''", -1)
-
 		// Insérer les films dans la base de donnée
 		// var errorFunc func(handler *Ouai, value models.ResultsModel, overview, title string) error = (*Ouai).SaveMovieDB
 		// if errorFunc(handler, value, overview, title) != nil {

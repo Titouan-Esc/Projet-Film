@@ -9,9 +9,22 @@ const Film = ({ film }: FilmProps) => {
     <>
       {film?.map((value: IFilms, index: number, array: IOneFilm) => {
         return (
-          <section key={index}>
-            <h2>{value.title}</h2>
-          </section>
+          <>
+            <section
+              className="film"
+              key={index}
+              style={{
+                backgroundImage: `url(https://image.tmdb.org/t/p/w500${value.poster_path})`,
+              }}
+            >
+              <div className="content">
+                <h2>{value.title}</h2>
+                <p>{value.overview}</p>
+              </div>
+            </section>
+            <div className="likes-dislikes"></div>
+            <div className="comments"></div>
+          </>
         );
       })}
     </>

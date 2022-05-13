@@ -1,0 +1,20 @@
+.film {
+  @include flex-box(column, space-between, center);
+  width: 80%;
+  height: 500px;
+  border-radius: 5px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 20px;
+
+  &:hover {
+    opacity: 0.5;
+    .content {
+      @include flex-box(column, space-between, center);
+    }
+  }
+
+  .content {
+    display: none;
+  }
+}
