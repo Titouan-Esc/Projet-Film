@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Film from "../components/Film";
 import NavBar from "../components/NavBar";
 import { IOneFilm } from "../interfaces/App_interface";
@@ -25,7 +25,6 @@ const Films = () => {
   return (
     <>
       <main className="films">
-        <h1>Tout les films</h1>
         <Film film={appFilm} />
       </main>
       <NavBar />

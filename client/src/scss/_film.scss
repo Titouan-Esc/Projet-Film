@@ -1,20 +1,37 @@
 .film {
-  @include flex-box(column, space-between, center);
+  @include flex-box(column, center, center);
   width: 80%;
-  height: 500px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  background-color: $color-background-film;
   border-radius: 5px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  margin-bottom: 20px;
 
-  &:hover {
-    opacity: 0.5;
-    .content {
-      @include flex-box(column, space-between, center);
+  .content {
+    h2 {
+      font-family: "Roboto";
+    }
+    img {
+      width: 100%;
+    }
+    p {
+      font-family: "Roboto";
     }
   }
 
-  .content {
-    display: none;
+  .likes-dislikes {
+    @include flex-box(row, flex-start, center);
+    width: 100%;
+    margin-top: 10px;
+
+    .likes {
+      @include flex-box(row, space-between, center);
+      margin-right: 20px;
+    }
+
+    .dislikes {
+      @include flex-box(row, space-between, center);
+      margin-right: 20px;
+    }
   }
 }
