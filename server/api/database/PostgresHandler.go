@@ -20,8 +20,6 @@ func (handler *PostgresHandler) Query(statement string) (IRow, error) {
 	row := new(PostgresRow)
 	row.Rows = rows
 
-	// defer rows.Close()
-
 	return row, nil
 }
 
