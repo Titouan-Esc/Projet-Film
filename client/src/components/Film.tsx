@@ -1,8 +1,7 @@
 import { IOneFilm, IFilms } from "../interfaces/App_interface";
 import {BsFillHandThumbsUpFill, BsFillHandThumbsDownFill} from "react-icons/bs"
 import axios, { AxiosResponse } from "axios";
-import { useState, MouseEvent, MouseEventHandler } from "react";
-import { getMouseEventOptions } from "@testing-library/user-event/dist/utils";
+import React, { useState } from "react";
 
 export interface FilmProps {
   film: IOneFilm | undefined;
@@ -10,6 +9,34 @@ export interface FilmProps {
 }
 
 const Film = ({ film, getMovies }: FilmProps) => {
+
+  const [appComment, setAppComment] = useState('');
+  
+  const handleChange = (event: React.FormEvent<HTMLInputElement>) => {
+    setAppComment(event.currentTarget.value);
+  }
+
+  const comments = (idFilm: number, comment: string) => {
+    try {
+      axios.put(`${process.env.REACT_APP_API_URL}/movie/comment`, {id: idFilm, comments: comment})
+      .then((res: AxiosResponse<number>) => {
+        getMovies();
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  const removeComments = (idFilm: number) => {
+    try {
+      axios.put(`${process.env.REACT_APP_API_URL}/movie/de-comment`, {id: idFilm})
+      .then((res: AxiosResponse<number>) => {
+        getMovies();
+      })
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   const likes = (idFilm: number) => {
     try {
@@ -57,7 +84,20 @@ const Film = ({ film, getMovies }: FilmProps) => {
                   <p>{value.dislikes}</p>
                 </div>
               </div>
-              <div className="comments"></div>
+              <div className="comments">
+                <form className="comments-form" onSubmit={() => comments(value.id, appComment)}>
+                  <input type="text" placeholder="Entrez un commentaire" onChange={handleChange}/>
+                  <button type="submit">Ajouter</button>
+                </form>
+                {value.comments ? (
+                  <div className="comments-display">
+                    <p>{value.comments}</p>
+                    <button onClick={() => removeComments(value.id)}>Supprimer</button>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
             </section>
           </>
         );

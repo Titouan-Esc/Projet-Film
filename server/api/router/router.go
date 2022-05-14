@@ -38,7 +38,7 @@ func (router *router) InitRouter() *chi.Mux {
 	r.Put("/movie/like", movieController.Like)
 	r.Put("/movie/dislike", movieController.Dislike)
 	r.Put("/movie/comment", movieController.AddComment)
-	r.Delete("/movie/comment", movieController.DeleteComment)
+	r.Put("/movie/de-comment", movieController.DeleteComment)
 
 	return r
 }
