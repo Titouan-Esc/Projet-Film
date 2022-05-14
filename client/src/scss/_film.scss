@@ -22,16 +22,24 @@
   .likes-dislikes {
     @include flex-box(row, flex-start, center);
     width: 100%;
-    margin-top: 10px;
+    margin: 10px;
 
     .likes {
       @include flex-box(row, space-between, center);
-      margin-right: 20px;
+      
+      p {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
     }
 
     .dislikes {
       @include flex-box(row, space-between, center);
-      margin-right: 20px;
+      
+      p {
+        margin-right: 10px;
+        margin-left: 10px;
+      }
     }
   }
 }

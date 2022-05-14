@@ -25,7 +25,7 @@ const Films = () => {
   return (
     <>
       <main className="films">
-        <Film film={appFilm} />
+        <Film film={appFilm} getMovies={getMovies}/>
       </main>
       <NavBar />
     </>

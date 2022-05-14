@@ -12,7 +12,7 @@ type MovieRepository struct {
 
 func (repository *MovieRepository) RecoverMoviesDB() ([]*models.ResultsModel, error) {
 	movies := make([]*models.ResultsModel, 0)
-	row, err := repository.Query(fmt.Sprintf(`SELECT * FROM "movies"`))
+	row, err := repository.Query(fmt.Sprintf(`SELECT * FROM "movies" ORDER BY "id" ASC`))
 	if err != nil {
 		return movies, err
 	}
