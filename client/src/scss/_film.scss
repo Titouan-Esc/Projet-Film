@@ -20,7 +20,7 @@
   }
 
   .likes-dislikes {
-    @include flex-box(row, flex-start, center);
+    @include flex-box(row, center, center);
     width: 100%;
     margin: 10px;
 
@@ -39,6 +39,38 @@
       p {
         margin-right: 10px;
         margin-left: 10px;
+      }
+    }
+  }
+
+  .comments {
+    margin: 10px;
+
+    .comments-form {
+      @include flex-box(row, space-between, center);
+      width: 70vw;
+
+      input {
+        padding: 10px;
+        border: 0px;
+        border-radius: 5px;
+      }
+
+      button {
+        padding: 10px;
+        border: 0px;
+        border-radius: 5px;
+      }
+    }
+
+    .comments-display {
+      @include flex-box(row, space-between, center);
+      margin-top: 10px;
+
+      button {
+        padding: 10px;
+        border: 0px;
+        border-radius: 5px;
       }
     }
   }

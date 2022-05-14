@@ -1,7 +1,7 @@
 import { IOneFilm, IFilms } from "../interfaces/App_interface";
 import {BsFillHandThumbsUpFill, BsFillHandThumbsDownFill} from "react-icons/bs"
 import axios, { AxiosResponse } from "axios";
-import React, { useState } from "react";
+import React, { FormEventHandler, useState } from "react";
 
 export interface FilmProps {
   film: IOneFilm | undefined;
