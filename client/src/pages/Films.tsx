@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import Film from "../components/Film";
-import NavBar from "../components/NavBar";
 import { IOneFilm } from "../interfaces/App_interface";
 import axios from "axios";
 
@@ -27,7 +26,6 @@ const Films = () => {
       <main className="films">
         <Film film={appFilm} getMovies={getMovies}/>
       </main>
-      <NavBar />
     </>
   );
 };

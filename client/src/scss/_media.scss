@@ -1,0 +1,59 @@
+@media screen and (min-width: 768px) {
+    .films {
+        @include flex-box(row, space-between, center);
+        flex-wrap: wrap;
+        margin: 10px;
+
+        .film {
+            width: 45%;
+            height: 70vh;
+            margin-bottom: 20px;
+
+            .content {
+                h2 {
+                    font-size: 17px;
+                }
+
+                img {
+                    width: 220px;
+                }
+
+                p {
+                    font-size: 12px;
+                }
+            }
+
+            .comments {
+                .comments-form {
+                    justify-content: center;
+                    width: 30vw;
+
+                    input {
+                        width: 15vw;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 1440px) {
+    .films {
+        .film {
+            width: 45%;
+            .content {
+                h2 {
+                    font-size: 20px;
+                }
+
+                img {
+                    width: 300px;
+                }
+                
+                p {
+                    font-size: 17px;
+                }
+            }
+        }
+    }
+}
